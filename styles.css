@@ -1655,12 +1655,15 @@ body {
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    opacity: 0;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 200px;
+    max-height: 500px;
     padding: 0 2rem 1.5rem;
+    opacity: 1;
+    transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s ease 0.1s;
 }
 
 .faq-answer p {
