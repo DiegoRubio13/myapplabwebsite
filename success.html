@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Exitoso - MyAppLab</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .success-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 
+                15px 15px 40px rgba(148, 163, 184, 0.3),
+                -15px -15px 40px rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+        }
+        .success-icon {
+            font-size: 4rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        .success-title {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .success-message {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn {
+            background: #3b82f6;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1 class="success-title">¡Pago Exitoso!</h1>
+        <p class="success-message">
+            Gracias por tu compra. Hemos recibido tu pago correctamente.
+            <br><br>
+            Te contactaremos en las próximas 24 horas para comenzar el desarrollo de tu proyecto.
+            <br><br>
+            <span id="session-info"></span>
+        </p>
+        <a href="/" class="btn">Volver al inicio</a>
+    </div>
+
+    <script>
+        // Get session ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        
+        if (sessionId) {
+            document.getElementById('session-info').textContent = `ID de transacción: ${sessionId}`;
+        }
+    </script>
+</body>
+</html>
