@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnimations();
 });
 
-// Contact form toggle functionality
-function toggleContactForm() {
+// Contact form toggle functionality (global)
+window.toggleContactForm = function() {
     const form = document.getElementById('contact-form');
     const button = document.querySelector('.btn-form-toggle');
     
@@ -230,23 +230,27 @@ function initTestimonialCarousel() {
 // FAQ accordion functionality
 function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
+    console.log('FAQ items found:', faqItems.length);
 
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close all FAQ items
-            faqItems.forEach(faqItem => {
-                faqItem.classList.remove('active');
+        if (question) {
+            question.addEventListener('click', () => {
+                console.log('FAQ clicked');
+                const isActive = item.classList.contains('active');
+                
+                // Close all FAQ items
+                faqItems.forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
             });
-            
-            // Open clicked item if it wasn't active
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        });
+        }
     });
 }
 
@@ -744,3 +748,21 @@ if (reducedMotionQuery.matches) {
 }
 
 console.log('MyAppLab website loaded successfully! 🚀');
+
+// Alternative FAQ implementation for debugging
+window.addEventListener('load', function() {
+    console.log('Window loaded, checking FAQ again...');
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    console.log('FAQ questions found on load:', faqQuestions.length);
+    
+    faqQuestions.forEach((question, index) => {
+        question.style.cursor = 'pointer';
+        question.onclick = function() {
+            console.log('FAQ clicked via onclick, index:', index);
+            const faqItem = this.closest('.faq-item');
+            if (faqItem) {
+                faqItem.classList.toggle('active');
+            }
+        };
+    });
+});
