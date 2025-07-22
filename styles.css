@@ -541,8 +541,8 @@ body {
 .decoration-2 {
     width: 80px;
     height: 80px;
-    bottom: 20%;
-    left: 10%;
+    bottom: 10%;
+    left: 5%;
     animation: float 10s ease-in-out infinite reverse;
 }
 
