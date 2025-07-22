@@ -374,12 +374,13 @@ body {
 
 .hero__title-card {
     background: #f1f5f9;
-    padding: 2rem;
+    padding: 1.75rem 2rem;
     border-radius: 25px;
     box-shadow: 
         15px 15px 40px rgba(148, 163, 184, 0.4),
         -15px -15px 40px rgba(255, 255, 255, 1);
     margin-bottom: 2rem;
+    display: inline-block;
 }
 
 .hero__title {
@@ -576,7 +577,7 @@ overflow: visible;
 
 .section__title-card {
     background: #f1f5f9;
-    padding: 1.5rem 2.5rem;
+    padding: 1.2rem 2rem;
     border-radius: 20px;
     box-shadow: 
         12px 12px 30px rgba(148, 163, 184, 0.3),
@@ -871,12 +872,15 @@ overflow: visible;
 
 .step-card {
     background: #f1f5f9;
-    padding: 2rem;
+    padding: 1.25rem;
     border-radius: 20px;
     box-shadow: 
         12px 12px 30px rgba(148, 163, 184, 0.3),
         -12px -12px 30px rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .step-card:hover {
@@ -887,15 +891,15 @@ overflow: visible;
 }
 
 .step-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: #f1f5f9;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
-    font-size: 1.6rem;
+    margin: 0 auto 0.75rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #3b82f6;
     box-shadow: 
@@ -905,7 +909,7 @@ overflow: visible;
 }
 
 .step-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #1e293b;
     margin-bottom: 0.5rem;
@@ -913,7 +917,8 @@ overflow: visible;
 
 .step-description {
     color: #64748b;
-    line-height: 1.6;
+    line-height: 1.4;
+    font-size: 0.9rem;
 }
 
 .timeline-connector {
@@ -1431,17 +1436,19 @@ overflow: visible;
 .about__values {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
 }
 
 .value-card {
     background: #f1f5f9;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 20px;
     box-shadow: 
         10px 10px 25px rgba(148, 163, 184, 0.3),
         -10px -10px 25px rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .value-card:hover {
@@ -1452,34 +1459,34 @@ overflow: visible;
 }
 
 .value-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     background: #f1f5f9;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
+    margin: 0 auto 0.5rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #3b82f6;
     box-shadow: 
-        inset 6px 6px 12px rgba(148, 163, 184, 0.25),
-        inset -6px -6px 12px rgba(255, 255, 255, 0.9);
+        inset 4px 4px 8px rgba(148, 163, 184, 0.25),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
 }
 
 .value-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: #1e293b;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .value-description {
     color: #64748b;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.8rem;
+    line-height: 1.3;
 }
 
 /* Testimonials Section */
