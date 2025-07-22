@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Botón</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .btn:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Botones</h1>
+    
+    <button class="btn" onclick="alert('¡Botón 1 funciona!')">Botón Simple 1</button>
+    
+    <button class="btn" onclick="testFunction()">Botón con Función</button>
+    
+    <button class="btn" id="btn3">Botón con EventListener</button>
+    
+    <script>
+        function testFunction() {
+            alert('¡La función funciona!');
+        }
+        
+        document.getElementById('btn3').addEventListener('click', function() {
+            alert('¡El EventListener funciona!');
+        });
+        
+        console.log('JavaScript está cargado correctamente');
+    </script>
+</body>
+</html>

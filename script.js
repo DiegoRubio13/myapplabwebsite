@@ -25,6 +25,52 @@ window.toggleContactForm = function() {
     }
 }
 
+// Service button handler (global)
+window.selectPackage = function(packageType) {
+    console.log('selectPackage called with:', packageType);
+    alert('Button clicked! Package: ' + packageType);
+    
+    // Scroll to contact section
+    const contactSection = document.getElementById('contact');
+    console.log('Contact section found:', !!contactSection);
+    
+    if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Wait for scroll then show form and select package
+        setTimeout(() => {
+            // Show the form
+            const form = document.getElementById('contact-form');
+            console.log('Contact form found:', !!form);
+            if (form) {
+                form.style.display = 'block';
+                console.log('Form displayed');
+            }
+            
+            // Update toggle button text
+            const toggleBtn = document.querySelector('.btn-form-toggle');
+            if (toggleBtn) {
+                const btnText = toggleBtn.querySelector('.btn-text');
+                if (btnText) {
+                    btnText.textContent = 'Ocultar Formulario';
+                }
+            }
+            
+            // Select the package
+            const packageSelect = document.getElementById('package');
+            console.log('Package select found:', !!packageSelect);
+            if (packageSelect) {
+                packageSelect.value = packageType;
+                console.log('Package selected:', packageType, 'Current value:', packageSelect.value);
+                // Trigger change event
+                packageSelect.dispatchEvent(new Event('change'));
+            }
+        }, 800);
+    } else {
+        console.error('Contact section not found!');
+    }
+}
+
 // Navigation functionality
 function initNavigation() {
     const navToggle = document.getElementById('nav-toggle');
@@ -668,17 +714,24 @@ window.addEventListener('scroll', throttle(() => {
 // Service package interaction
 document.addEventListener('DOMContentLoaded', () => {
     const serviceButtons = document.querySelectorAll('.btn-service');
+    console.log('Service buttons found:', serviceButtons.length);
     
     serviceButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
+            console.log('Service button clicked!');
             
             // Get the package type from the card
             const card = button.closest('.service-card');
             const packageTitle = card.querySelector('.service-card__title').textContent;
+            console.log('Package title:', packageTitle);
             
             // Scroll to contact form
             const contactForm = document.getElementById('contact');
+            if (!contactForm) {
+                console.error('Contact form section not found!');
+                return;
+            }
             const headerHeight = document.querySelector('.header').offsetHeight;
             
             window.scrollTo({
@@ -690,16 +743,35 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const packageSelect = document.getElementById('package');
                 if (packageSelect) {
-                    const packageValue = packageTitle.toLowerCase().includes('basic') ? 'basic' :
-                                        packageTitle.toLowerCase().includes('premium') ? 'premium' :
-                                        packageTitle.toLowerCase().includes('enterprise') ? 'enterprise' : '';
+                    let packageValue = '';
+                    
+                    // Map package titles to form values
+                    if (packageTitle === 'APP iOS') {
+                        packageValue = 'ios';
+                    } else if (packageTitle === 'APP DUAL') {
+                        packageValue = 'dual';
+                    } else if (packageTitle === 'APP PREMIUM') {
+                        packageValue = 'premium';
+                    } else if (packageTitle === 'WEBSITE') {
+                        packageValue = 'website';
+                    }
                     
                     if (packageValue) {
                         packageSelect.value = packageValue;
                         packageSelect.dispatchEvent(new Event('change'));
+                        
+                        // Also show the form if it's hidden
+                        const contactForm = document.getElementById('contact-form');
+                        if (contactForm && (contactForm.style.display === 'none' || contactForm.style.display === '')) {
+                            contactForm.style.display = 'block';
+                            const formToggle = document.querySelector('.btn-form-toggle');
+                            if (formToggle) {
+                                formToggle.querySelector('.btn-text').textContent = 'Ocultar Formulario';
+                            }
+                        }
                     }
                 }
-            }, 500);
+            }, 800);
             
             // Add visual feedback
             button.style.transform = 'scale(0.95)';
@@ -748,6 +820,83 @@ if (reducedMotionQuery.matches) {
 }
 
 console.log('MyAppLab website loaded successfully! 🚀');
+
+// Alternative service button handler using event delegation
+window.addEventListener('load', function() {
+    console.log('Setting up service button handlers...');
+    
+    // Use event delegation for better reliability
+    document.body.addEventListener('click', function(e) {
+        // Check if clicked element is a service button or inside one
+        const button = e.target.closest('.btn-service');
+        if (!button) return;
+        
+        e.preventDefault();
+        console.log('Service button clicked via delegation!');
+        
+        // Get the package info
+        const card = button.closest('.service-card');
+        if (!card) {
+            console.error('Service card not found!');
+            return;
+        }
+        
+        const titleElement = card.querySelector('.service-card__title');
+        if (!titleElement) {
+            console.error('Title element not found!');
+            return;
+        }
+        
+        const packageTitle = titleElement.textContent.trim();
+        console.log('Package:', packageTitle);
+        
+        // Navigate to contact section
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Show form and pre-fill after scroll
+            setTimeout(() => {
+                // Show the form
+                const form = document.getElementById('contact-form');
+                if (form) {
+                    form.style.display = 'block';
+                }
+                
+                // Update button text
+                const toggleBtn = document.querySelector('.btn-form-toggle');
+                if (toggleBtn) {
+                    const btnText = toggleBtn.querySelector('.btn-text');
+                    if (btnText) {
+                        btnText.textContent = 'Ocultar Formulario';
+                    }
+                }
+                
+                // Pre-fill the select
+                const select = document.getElementById('package');
+                if (select) {
+                    let value = '';
+                    if (packageTitle.includes('iOS') && !packageTitle.includes('DUAL')) {
+                        value = 'ios';
+                    } else if (packageTitle.includes('DUAL')) {
+                        value = 'dual';
+                    } else if (packageTitle.includes('PREMIUM')) {
+                        value = 'premium';
+                    } else if (packageTitle.includes('WEBSITE')) {
+                        value = 'website';
+                    }
+                    
+                    if (value) {
+                        select.value = value;
+                        console.log('Package selected:', value);
+                    }
+                }
+            }, 1000);
+        } else {
+            console.error('Contact section not found!');
+        }
+    });
+});
 
 // Alternative FAQ implementation for debugging
 window.addEventListener('load', function() {
